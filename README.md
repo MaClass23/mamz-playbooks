@@ -1,4 +1,4 @@
-#####################################################################################################################
+####################################################################################################
 Write a Dockerfile that scrapes a website of your choosing.
 
 
@@ -13,5 +13,5 @@ Create the YAML files required for deploying
 Write an Ansible playbook for installing Docker, Minikube, and kubectl that creates a deployment in minikube with all of the containers running
 Describe how you would test such an application
 Describe potential flaws in the design and how you could fix them
-#########################################################################################################################
+#########################################################################################################
 
