@@ -15,9 +15,9 @@ Write an Ansible playbook for installing Docker, Minikube, and kubectl that crea
 Describe how you would test such an application
 Describe potential flaws in the design and how you could fix them
 ############################################################
-
 Setup overview
-###############
+###########
+
 We will be setting up a Kubernetes cluster that will consist of one master and two worker nodes. All the nodes will run Ubuntu Xenial 64-bit OS and Ansible playbooks will be used for provisioning.
 
 Step 1: Creating a Vagrantfile 
