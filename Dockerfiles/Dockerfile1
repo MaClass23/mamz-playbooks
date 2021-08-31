@@ -1,0 +1,6 @@
+FROM mongo:latest
+WORKDIR /mongodb
+RUN mkdir -p /var/lib/docker/volumes/mydb
+EXPOSE 27017
+ENV MONGO_INITDB_ROOT_USERNAME=mongo
+ENV MONGO_INITDB_ROOT_PASSWORD=password 
