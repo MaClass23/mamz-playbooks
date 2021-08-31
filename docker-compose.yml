@@ -1,0 +1,43 @@
+version: '3.1'
+services:
+  springboot:
+    image: maclass23/nodeapp
+    restart: always # This will be ignored if we deploy in docker swarm
+    container_name: mamz-fierce
+    environment:
+    - MONGO_DB_HOSTNAME=mongodb
+    - MONGO_DB_USERNAME=mongo
+    - MONGO_DB_PASSWORD=password
+    ports:
+      - 3000:3000
+    working_dir: /opt/app
+    depends_on:
+    - mongo
+    deploy:  # This will be considered only in docker swarm.
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 20s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+    networks:
+    - default
+  mongo:
+    image: mongo
+    container_name: mongodb
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=mongo 
+    - MONGO_INITDB_ROOT_PASSWORD=password 
+    volumes:
+      - mydb:/data/db
+    restart: always
+    networks:
+    - default 
+volumes:
+  mydb:
+    external: true
+networks:
+  default:
+    external: true
