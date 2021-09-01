@@ -62,7 +62,11 @@ spec:
              secretKeyRef:
                name: mongodb-secret
                key: mongo_root_password 
-          - name: MONGO_INITDB_ROOT_HOSTNAME=mongodb
+          - name: MONGO_INITDB_ROOT_HOSTNAME
+          valueFrom:
+            configMapRef:
+              name: mongodb-configmap
+              key: mongodb
         ports:
         - containerPort:  3000
           name:  mamz-app
