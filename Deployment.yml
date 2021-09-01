@@ -57,12 +57,40 @@ spec:
           - ENV MONGO_INITDB_ROOT_HOSTNAME=mongodb
         ports:
         - containerPort:  3000
-          name:  mamz-apps
+          name:  mamz-app
         volumeMounts:
-        - name: localtime
+        - name: /data/db
           mountPath: /data/db
       volumes:
-        - name: localtime
+        - name: /data/db
           hostPath:
-            path: /var/lib/docker/volumes/mydb
+            path: /var/lib/docker/volumes
       restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webappsvc
+  namespace: default
+spec:
+  selector:
+    app: webapp
+  type: NodePort
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: webappsvc
+    protocol: TCP 
+    port: 3000
+    targetPort: 3000
+    # If you set the `spec.type` field to `NodePort` and you want a specific port number,
+    # you can specify a value in the `spec.ports[*].nodePort` field.
+    nodePort: 31000
+  env:
+      - ENV MONGO_INITDB_ROOT_USERNAME=mongo
+      - ENV MONGO_INITDB_ROOT_PASSWORD=password 
+      - ENV MONGO_INITDB_ROOT_HOSTNAME=mongodb
+      
