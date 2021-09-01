@@ -52,8 +52,16 @@ spec:
           failureThreshold: 3
           periodSeconds: 10
         env:
-          - name: MONGO_INITDB_ROOT_USERNAME=mongo
-          - name: MONGO_INITDB_ROOT_PASSWORD=password 
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef: 
+                name: mongodb-secret
+                key: mongo_root_username
+         - name: MONGO_INITDB_ROOT_PASSWORD
+           valueFrom: 
+             secretKeyRef:
+               name: mongodb-secret
+               key: mongo_root_password 
           - name: MONGO_INITDB_ROOT_HOSTNAME=mongodb
         ports:
         - containerPort:  3000
@@ -89,8 +97,5 @@ spec:
     # If you set the `spec.type` field to `NodePort` and you want a specific port number,
     # you can specify a value in the `spec.ports[*].nodePort` field.
     nodePort: 31000
-  env:
-    - name: MONGO_INITDB_ROOT_USERNAME=mongo
-    - name: MONGO_INITDB_ROOT_PASSWORD=password 
-    - name: MONGO_INITDB_ROOT_HOSTNAME=mongodb
+ 
       
