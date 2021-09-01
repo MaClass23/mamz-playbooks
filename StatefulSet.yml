@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: webapp # has to match .spec.template.metadata.labels
+  serviceName: mongodbsvc
+  replicas: 3 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: webapp # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mongodb 
+        image: mongo:latest 
+        ports:
+        - containerPort: 27017
+          name: mongodb
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME=mongo
+          - name: MONGO_INITDB_ROOT_PASSWORD=password 
+        volumeMounts:
+        - name: /data/db
+          mountPath: /var/lib/docker/volumes/
+  volumeClaimTemplates:
+  - metadata:
+      name: /data/db
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 1Gi
