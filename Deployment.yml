@@ -52,9 +52,9 @@ spec:
           failureThreshold: 3
           periodSeconds: 10
         env:
-          - ENV MONGO_INITDB_ROOT_USERNAME=mongo
-          - ENV MONGO_INITDB_ROOT_PASSWORD=password 
-          - ENV MONGO_INITDB_ROOT_HOSTNAME=mongodb
+          - name: MONGO_INITDB_ROOT_USERNAME=mongo
+          - name: MONGO_INITDB_ROOT_PASSWORD=password 
+          - name: MONGO_INITDB_ROOT_HOSTNAME=mongodb
         ports:
         - containerPort:  3000
           name:  mamz-app
@@ -90,7 +90,7 @@ spec:
     # you can specify a value in the `spec.ports[*].nodePort` field.
     nodePort: 31000
   env:
-      - ENV MONGO_INITDB_ROOT_USERNAME=mongo
-      - ENV MONGO_INITDB_ROOT_PASSWORD=password 
-      - ENV MONGO_INITDB_ROOT_HOSTNAME=mongodb
+    - name: MONGO_INITDB_ROOT_USERNAME=mongo
+    - name: MONGO_INITDB_ROOT_PASSWORD=password 
+    - name: MONGO_INITDB_ROOT_HOSTNAME=mongodb
       
